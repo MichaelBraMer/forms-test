@@ -44,5 +44,6 @@ export class FormComponent implements OnChanges {
     this.answersService.createAnswer(createAnswer).subscribe((data) => {
       console.log(data)
     })
+    window.location.reload();
   }
 }
