@@ -3,7 +3,7 @@ import { Field, FieldsForm, Form } from '../../interfaces/form.interface';
 import { CreateAnswer, FieldAnswers } from '../../../answers/interfaces/answers.interface';
 import { AnswersService } from '../../../answers/services/answers.service';
 import { emailVerificator } from '../../../answers/functions/emailVerificator';
-
+import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -36,12 +36,13 @@ export class FormComponent implements OnChanges {
     this.refreshAnswerList.emit();
   }
 
-  onSubmit(): void {
+  onSubmit(popover: NgbPopover): void {
     let isValid = true;
     for (const fa of this.fieldsForm){
       if(fa.type==='email' && !emailVerificator(fa.response)){
         console.log('error')
         isValid = false;
+        popover.open();
         break;
       }
     }

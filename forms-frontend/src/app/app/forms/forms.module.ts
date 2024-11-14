@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { FormsModule as FormAngularModule} from '@angular/forms';
+import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { FormsModule as FormAngularModule} from '@angular/forms';
     MatIconModule,
     AnswersModule,
     FormAngularModule,
+    NgbPopover
   ],
   exports: [
     FormsListComponent,

@@ -44,7 +44,14 @@
           </select>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()">Enviar</button>
+        <button
+          type="button" class="btn btn-primary w-100"
+          ngbPopover="El email no es válido"
+          #popover="ngbPopover"
+          triggers="manual"
+          (click)="onSubmit(popover)"
+        > Enviar
+        </button>
       </form>
     </div>
   </div>
