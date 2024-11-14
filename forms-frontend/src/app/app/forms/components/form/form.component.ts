@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { Field, FieldsForm, Form } from '../../interfaces/form.interface';
 import { CreateAnswer, FieldAnswers } from '../../../answers/interfaces/answers.interface';
 import { AnswersService } from '../../../answers/services/answers.service';
+import { emailVerificator } from '../../../answers/functions/emailVerificator';
 
 @Component({
   selector: 'app-form',
@@ -36,20 +37,30 @@ export class FormComponent implements OnChanges {
   }
 
   onSubmit(): void {
-    const fieldAnswers: FieldAnswers[]= this.fieldsForm.map((fieldForm)=>{
-      return {
-        fieldName: fieldForm.name,
-        content: fieldForm.response,
-        label: fieldForm.label,
+    let isValid = true;
+    for (const fa of this.fieldsForm){
+      if(fa.type==='email' && !emailVerificator(fa.response)){
+        console.log('error')
+        isValid = false;
+        break;
       }
-    })
-    const createAnswer: CreateAnswer = {
-      answers: fieldAnswers,
-      formId: this.form!._id
     }
-    this.answersService.createAnswer(createAnswer).subscribe((data) => {
-      console.log(data)
-      this.refreshAnswers()
-    })
+    if(isValid){
+      const fieldAnswers: FieldAnswers[]= this.fieldsForm.map((fieldForm)=>{
+        return {
+          fieldName: fieldForm.name,
+          content: fieldForm.response,
+          label: fieldForm.label,
+        }
+      })
+      const createAnswer: CreateAnswer = {
+        answers: fieldAnswers,
+        formId: this.form!._id
+      }
+      this.answersService.createAnswer(createAnswer).subscribe((data) => {
+        console.log(data)
+        this.refreshAnswers()
+      })
+    }
   }
 }
