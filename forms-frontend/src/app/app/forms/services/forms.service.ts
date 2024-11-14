@@ -9,7 +9,7 @@ const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8
   providedIn: 'root'
 })
 export class FormsService {
-  private apiUrl = 'http://localhost:3000/form'
+  public apiUrl = 'http://localhost:3000/form'
 
   constructor(private httpClient: HttpClient) { }
 
