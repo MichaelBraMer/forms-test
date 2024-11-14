@@ -1,0 +1,51 @@
+<div class="container my-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white text-center">
+      <h1 class="card-title mb-0">{{ formName }}</h1>
+      <p class="card-subtitle">{{ description }}</p>
+    </div>
+    <div class="card-body">
+      <form>
+        <div *ngFor="let field of fieldsForm" class="mb-3">
+          <label [for]="field.name" class="form-label fw-semibold">{{ field.label }}</label>
+
+          <input
+            *ngIf="field.type !== 'select' && field.type !== 'textarea'"
+            [type]="field.type"
+            [name]="field.name"
+            [id]="field.name"
+            [required]="field.required"
+            [(ngModel)]="field.response"
+            class="form-control"
+            placeholder="Ingrese {{ field.label | lowercase }}"
+          />
+
+          <textarea
+            *ngIf="field.type === 'textarea'"
+            [name]="field.name"
+            [id]="field.name"
+            [required]="field.required"
+            [(ngModel)]="field.response"
+            class="form-control"
+            placeholder="Ingrese {{ field.label | lowercase }}"
+          ></textarea>
+
+          <select
+            *ngIf="field.type === 'select'"
+            [name]="field.name"
+            [id]="field.name"
+            [required]="field.required"
+            class="form-select"
+            [(ngModel)]="field.response"
+          >
+            <option *ngFor="let option of field.values" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()">Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>
