@@ -42,6 +42,6 @@ describe('FormsService', () => {
     const req = httpMock.expectOne(service.apiUrl);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(JSON.stringify(newForm));
-    req.flush(mockForms[0]); // Simula la respuesta de la API
+    req.flush(mockForms[0]);
   });
 });

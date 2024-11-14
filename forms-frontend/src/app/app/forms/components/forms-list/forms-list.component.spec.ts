@@ -36,7 +36,7 @@ describe('FormsListComponent', () => {
   it('should load forms on init', () => {
     formsService.getForms.and.returnValue(of(mockForms));
 
-    fixture.detectChanges(); // Ejecuta ngOnInit
+    fixture.detectChanges();
 
     expect(component.forms.length).toBe(2);
     expect(component.forms).toEqual(mockForms);
