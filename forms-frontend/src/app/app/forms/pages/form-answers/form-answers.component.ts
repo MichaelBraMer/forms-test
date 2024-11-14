@@ -15,7 +15,6 @@ export class FormAnswersComponent implements OnInit {
   public form?: Form;
   public answers: Answer[] = [];
 
-
   constructor(private route: ActivatedRoute, private formsService: FormsService) {}
 
   ngOnInit(): void {
@@ -23,6 +22,10 @@ export class FormAnswersComponent implements OnInit {
       this.id = params.get('id')!;
     });
     this.loadForm();
+  }
+
+  onRefreshAnswerList(): void {
+    this.loadForm()
   }
 
   loadForm(): void {

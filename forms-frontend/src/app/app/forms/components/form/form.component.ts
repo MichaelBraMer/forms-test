@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Field, FieldsForm, Form } from '../../interfaces/form.interface';
 import { CreateAnswer, FieldAnswers } from '../../../answers/interfaces/answers.interface';
 import { AnswersService } from '../../../answers/services/answers.service';
@@ -19,6 +19,8 @@ export class FormComponent implements OnChanges {
   @Input()
   public form?: Form;
 
+  @Output() refreshAnswerList = new EventEmitter<void>();
+
   constructor(private answersService: AnswersService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -27,6 +29,10 @@ export class FormComponent implements OnChanges {
       this.description = this.form.description;
       this.fieldsForm = this.form.fields.map((currentField)=> {return {...currentField, response: currentField.defaultValue || ''}})
     }
+  }
+
+  refreshAnswers(): void {
+    this.refreshAnswerList.emit();
   }
 
   onSubmit(): void {
@@ -43,7 +49,7 @@ export class FormComponent implements OnChanges {
     }
     this.answersService.createAnswer(createAnswer).subscribe((data) => {
       console.log(data)
+      this.refreshAnswers()
     })
-    window.location.reload();
   }
 }
